@@ -20,6 +20,10 @@ npm run dev
 
 ## plans
 
-- drag'n'drop `.md` file into page and auto-populate `editorContent` with file
-- host on cloudflare
-- vim-like editor
+- drag'n'drop `.md` file into page and auto-populate `editorContent` with file[^1]
+- host on cloudflare[^2]
+- vim-like editor[^3]
+
+[^1]: [Issue #1 drag'n'drop](./issues/1)
+[^2]: [Issue #2 host on cloudflare](./issues/2)
+[^3]: [Issue #3 vim-like editor](./issues/3)
