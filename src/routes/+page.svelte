@@ -2,8 +2,27 @@
 	import { marked } from 'marked';
 	import { onMount } from 'svelte';
 
+	const mdSave = () => {
+		const blob = new Blob([editorContent], { type: 'text/markdown' });
+		const url = URL.createObjectURL(blob);
+		const a = document.createElement('a');
+		a.href = url;
+		a.download = `${location.host.split(":")[0].replaceAll('.', '_')}_${editorContent.split(' ').slice(0, 3).join('-')}.md`;
+		a.click();
+		URL.revokeObjectURL(url);
+	};
+
 	onMount(() => {
-		document.querySelector('textarea')?.focus();
+		const textarea = document.querySelector('textarea');
+		if (textarea) {
+			textarea.focus();
+			textarea.addEventListener('keydown', (e) => {
+				if (e.ctrlKey && e.key === 's') {
+					e.preventDefault();
+					mdSave();
+				}
+			});
+		}
 	});
 
 	let editorContent = '';
