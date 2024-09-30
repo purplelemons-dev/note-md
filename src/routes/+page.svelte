@@ -1,5 +1,11 @@
 <script lang="ts">
 	import { marked } from 'marked';
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		document.querySelector('textarea')?.focus();
+	});
+
 	let editorContent = '';
 	$: preview = marked(editorContent);
 </script>
