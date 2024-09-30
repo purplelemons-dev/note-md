@@ -2,6 +2,8 @@
 
 quick note-taking app. entirely client-side
 
+![image](https://github.com/user-attachments/assets/a6806288-9422-437d-89d4-9896798ad53d)
+
 ## install
 
 ```bash
