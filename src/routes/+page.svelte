@@ -1,32 +1,59 @@
 <script lang="ts">
 	import { marked } from 'marked';
 	import { onMount } from 'svelte';
+	import { jsPDF } from 'jspdf';
+
+	let editorContent = '';
+	let hostname = '';
+	$: preview = marked(editorContent);
+	$: filename = `${hostname}_${editorContent.split(' ').slice(0, 3).join('-')}`;
 
 	const mdSave = () => {
 		const blob = new Blob([editorContent], { type: 'text/markdown' });
 		const url = URL.createObjectURL(blob);
 		const a = document.createElement('a');
 		a.href = url;
-		a.download = `${location.host.split(":")[0].replaceAll('.', '_')}_${editorContent.split(' ').slice(0, 3).join('-')}.md`;
+		a.download = `${filename}.md`;
 		a.click();
 		URL.revokeObjectURL(url);
 	};
 
+	const exportPDF = () => {
+        // may want to switch to html2pdf--pdfs look like shit right now
+		const doc = new jsPDF();
+		const preprocPreview = `<div style="color: #000;">${preview}</div>`;
+		console.log(preprocPreview);
+		doc.html(preprocPreview, {
+			callback: (doc) => {
+				doc.save(`${filename}.pdf`);
+			},
+			x: 10,
+			y: 10,
+			/*html2canvas: {
+				scale: 0.37
+			}*/
+		});
+	};
+
 	onMount(() => {
+		hostname = location.host.split(':')[0].replaceAll('.', '_');
+
 		const textarea = document.querySelector('textarea');
 		if (textarea) {
 			textarea.focus();
 			textarea.addEventListener('keydown', (e) => {
+				// Ctrl+S to save
+				// Ctrl+P or Ctrl+Shift+E to export PDF
 				if (e.ctrlKey && e.key === 's') {
 					e.preventDefault();
 					mdSave();
+				} else if ((e.ctrlKey && e.key === 'p') || (e.ctrlKey && e.shiftKey && e.key === 'e')) {
+					e.preventDefault();
+					exportPDF();
 				}
 			});
 		}
 	});
-
-	let editorContent = '';
-	$: preview = marked(editorContent);
 </script>
 
 <main>
