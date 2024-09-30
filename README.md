@@ -1,6 +1,15 @@
 # note-md
 
-quick note-taking app
+quick note-taking app. entirely client-side
+
+## install
+
+```bash
+git clone https://github.com/purplelemons-dev/note-md.git
+cd note-md
+npm install
+npm run dev
+```
 
 ## usage
 
@@ -9,4 +18,5 @@ quick note-taking app
 
 ## plans
 
-drag'n'drop `.md` file into page and auto-populate `editorContent` with file
+- drag'n'drop `.md` file into page and auto-populate `editorContent` with file
+- host on cloudflare
