@@ -22,3 +22,4 @@ npm run dev
 
 - drag'n'drop `.md` file into page and auto-populate `editorContent` with file
 - host on cloudflare
+- vim-like editor
